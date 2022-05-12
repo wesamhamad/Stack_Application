@@ -89,7 +89,8 @@ void expression(){
     Stack s;
     char symbol ;
     string postfix;
-    double value, count = 0 , opnd1 , opnd2;
+    double value, opnd1 , opnd2;
+    int count = 0 ;
 
     cout<<"Enter postfix expression : ";
     cin>> postfix;
