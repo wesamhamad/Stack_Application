@@ -15,7 +15,7 @@ This Repository covers Coding Implementation Evaluation of Arithmetic Expression
 
 This program has separated [Convert Infix To Postfix](https://github.com/wesamhamad/Stack_Application/blob/main/src/main.cpp) **and** [Evaluate Postfix Expression](https://github.com/wesamhamad/Stack_Application/blob/main/src/Evaluate.
 
-## Stack Using Array vs linked List.
+## Stack Using Dynamic Array vs Linked List.
 
 **Singly-linked list:** costs to push or pop into a linked-list-backed stack
 is O(1) worst-case.
