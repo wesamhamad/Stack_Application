@@ -1,6 +1,7 @@
 #include <string>
+#include<cstring> // for size_t
 #include <iostream>
-#include <cmath>
+
 using namespace std;
 
 struct node{
@@ -53,64 +54,92 @@ double Stack::peak(){
 
 // End Of Class's Functions
 
-
-
-double evaluation(double op1, double op2, char Operator);    // Operation 1: Calculate Two Values
-void expression();                                          // Operation 2:  Evaluate  Postfix Expression
-
+int Priority(char x);                                          // Operation 1: Check Priority
+bool prcd(char symb1, char symb2);                            //  Operation 2: Decided Precedence Of Operations
+void infix_to_postfix();                                     //   Operation 3: Convert Infix To Postfix
 
 int main(){
-    cout<<"This Program Will Evaluate  Postfix Expression \n\n";
-    expression();
+    cout<<"This Program Will Convert Infix To Postfix \n\n";
+    infix_to_postfix();
+
     return 0;
 }
 
-double evaluation(double op1, double op2, char Operator){
-    double value = 0;
-
-    switch(Operator){
-        case '^':
-            value = (double)pow(op1, op2); break;
-        case '*':
-            value = op1 * op2; break;
-        case '/':
-            value = op2 != 0 ? (op1 / op2) : throw runtime_error("Math error: Attempted to divide by Zero\n"); break;// to avoid devided by zero which is comman logic error
-        case '%':
-            value = (int)op1 % (int)op2; break;
-        case '+':
-            value = op1 + op2; break;
-        case '-':
-            value = op1 - op2; break;
-    }
-    return value;
+int Priority(char x){
+    int n = 0;
+    if (x == '^')
+        n = 3;
+    if(x == '*' || x == '/' || x == '%' )
+        n = 2;
+    if(x == '+' || x == '-' )
+        n = 1;
+    return n;
 }
 
-void expression(){
+bool prcd(char symb1, char symb2){
+    if(symb1 == '^' && symb2 == '^') // 2^2^3
+        return false;
+    if(symb1 == '(' || symb2 == '(')// open
+        return false;
+    else if(symb1 == ')')//to pop operations
+        return true;
+    else{
+        if(Priority(symb1) >= Priority(symb2))
+            return true;
+        else
+            return false;
+    }
+}
+
+void infix_to_postfix(){
     Stack s;
-    char symbol ;
-    string postfix;
-    double value, count = 0 , opnd1 , opnd2;
+    string infix;
+    char symbol = '\0';
+    int count1 = 0;// to accessing infix characters
+    int count2 = 0;// to accessing postfix elements
 
-    cout<<"Enter postfix expression : ";
-    cin>> postfix;
+    cout<<"Enter the infix expression:"<<endl;
+    getline (cin,infix);
 
-    while( count < postfix.length() ){
-        symbol = postfix[count];
+    size_t size = infix.length();
 
-        if( isdigit(symbol))
-            s.push(symbol - '0'); // to convert char to int
-        else{
-            opnd2 = s.pop();
-            opnd1 = s.pop();
-            value = evaluation(opnd1 , opnd2, symbol);
-            s.push(value);
+    string *postfix = new string[size];
+
+    while (count1 < size) {
+        symbol = infix[count1];
+        if(isalpha(symbol) || isdigit(symbol)){
+            postfix[count2] = symbol;
+            count2++;
         }
-        count++;
+        else{
+            while (!s.isEmpty() && prcd(s.peak(), symbol)) {
+                postfix[count2] = s.pop();
+                count2++;
+            }
+            if(s.isEmpty() || symbol != ')')
+                s.push(symbol);
+            else
+                s.pop();
+
+        }
+        count1++;
     }
-      cout<<"Evaluating a postfix expression : "<<s.pop()<<endl;
+
+    while(!s.isEmpty()){
+        if( symbol == '(')
+            s.pop();
+        else{
+            postfix[count2] = s.pop();
+            count2++;
+        }
+    }
+
+    for(int i=0; i<count2; i++)
+        cout<< postfix[i];
+    cout<<endl;
+
+    delete [] postfix;
+    postfix = NULL;
+
 }
-
-
-
-
 
