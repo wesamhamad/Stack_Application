@@ -13,7 +13,7 @@ A Stack is a widely used linear data structure in modern computers in which inse
 ## Evaluation of Arithmetic Expressions
 This Repository covers Coding Implementation Evaluation of Arithmetic Expressions base on the following [algorithem](https://github.com/wesamhamad/Stack_Application/blob/main/Stack%20Applications.pdf).
 
-This program has separated [Convert Infix To Postfix](https://github.com/wesamhamad/Stack_Application/blob/main/src/main.cpp) **and** [Evaluate Postfix Expression](https://github.com/wesamhamad/Stack_Application/blob/main/src/Evaluate.
+This program has separated [Convert Infix To Postfix](https://github.com/wesamhamad/Stack_Application/blob/main/src/main.cpp) **and** [Evaluate Postfix Expression](https://github.com/wesamhamad/Stack_Application/blob/main/src/Evaluate).
 
 ## Stack Using Dynamic Array vs Linked List.
 
